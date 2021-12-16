@@ -13,6 +13,8 @@ def app():
     
     ### 1. ¿Por qué he hecho este proyecto?
 
+    Travelling-Compass, nace de la ausencia de información competitiva que se ofrece en Airbnb a los anfitriones que quieren hacer de su apartamento un alojamiento turístico.
+    Gracias a esta brújula, un propietario puede saber de antemano cuál es el mejor precio al que puede poner en alguiler su alojamiento en función de las características de su casa y de los precios de la competencia. 
     
 
     ### 2. ¿Qué herramientas he utilizado?

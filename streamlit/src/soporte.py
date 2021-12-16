@@ -35,8 +35,9 @@ def model(paisano):
 
 
     #Creamos objecto para binary encoding:
-    paisano_ = paisano.drop(columns = (["urls", "nombre", "ciudad", "ubicacion_fantastica", "wifi", "cocina", "frigorifico", "secador"]), axis=1, inplace=True)
-    print(paisano_)
+    print(type(paisano))
+    paisano_ = paisano.drop(columns = (["urls", "nombre", "ciudad", "ubicacion_fantastica", "wifi", "cocina", "frigorifico", "secador"]), axis=1)
+    print(type(paisano_))
     encoder = ce.BinaryEncoder(paisano_,return_df=True)
     print(encoder)
     binary_encoded = encoder.fit_transform(paisano_)
@@ -45,17 +46,17 @@ def model(paisano):
     print(binary_encoded.columns)
     
     #Concatenamos datos:
-    #df_ = binary_encoded[["alojamiento_1", "limpieza_1", "llegada_autonoma_1", "lavadora_1", "aire_1"]]
-    #print(df_)
-    binary_encoded.columns = ["alojamiento", "limpieza", "llegada_autonoma", "lavadora", "aire"]
+    df_ = binary_encoded[["alojamiento_0", "limpieza_0", "llegada_autonoma_0", "lavadora_0", "aire_0"]]
+    print(df_)
+    #binary_encoded.columns = ["alojamiento", "limpieza", "llegada_autonoma", "lavadora", "aire"]
     categorias_ = paisano[["huespedes", "dormitorios", "camas", "baños", "precio_eur"]]
     #Este código junta las nuevas variables de usos en código binario con el df total de variables = categorías
-    datos_ = pd.concat([categorias_, binary_encoded], axis=1)
+    datos_ = pd.concat([categorias_, df_], axis=1)
 
     y = datos_.precio_eur
-    x = datos_.drop(columns= ["precio_eur"])
-
-    y_pred = rfr.predict(categorias_)
+    x_ = datos_.drop(columns= ["precio_eur"], axis = 1)
+    print(datos_)
+    y_pred = rfr.predict(x_)
 
     return y_pred
 

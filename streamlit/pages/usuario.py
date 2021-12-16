@@ -5,14 +5,6 @@ import codecs
 import src.soporte as sp
 
 def app():
-    portada = Image.open("images/usuario.jpg")
-    st.image(portada, use_column_width=True)
-    st.write("""
-    # ¡Hola, soy tu Travelling-Compass! 👋🏻
-
-    ##### Por favor, completa el siguiente formulario para que pueda obtener los resultados de tu búsqueda flexible:
-    """)
-
     #pregunta 0
     input_usuario = ["Huésped", "Propietario"]
 
@@ -261,7 +253,7 @@ def app():
     final = lavadora_[lavadora_.limpieza.isin(uso)]           
     #st.dataframe(final[["nombre","precio_eur", "valoracion", "urls"]])
     
-    
+
     if len(final) >0 and usuario == "Huésped":
         st.write("""
     ### 🏠 Estos son los alojamientos disponibles en tu selección:
@@ -270,7 +262,9 @@ def app():
     
     elif len(final) >0 and usuario == "Propietario":
         print(final)
-        sp.model(final)
+        st.write(f"""
+        ### Tu precio competitivo en Airbnb será de: {round(sp.model(final)[0], 2)}€
+    """)
     else:
         st.write("""
         \n ## Lo siento... 🥲 actualmente no existen Airbnbs con esas características.

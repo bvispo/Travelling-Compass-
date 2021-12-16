@@ -8,7 +8,9 @@ def app():
     portada = Image.open("images/usuario.jpg")
     st.image(portada, use_column_width=True)
     st.write("""
-    # Your Travelling-Compass 🚀
+    # ¡Hola, soy tu Travelling-Compass! 👋🏻
+
+    ##### Por favor, completa el siguiente formulario para que pueda obtener los resultados de tu búsqueda flexible:
     """)
 
     #pregunta 0
@@ -19,11 +21,13 @@ def app():
 
     #pregunta 1
     input_ciudad = ["Madrid", "Barcelona", "Valencia", "Sevilla"]
-
+    
     if usuario == "Huésped":
         ciudad = st.radio("¿A dónde quieres viajar?", input_ciudad)
     elif usuario == "Propietario":
         ciudad = st.radio("¿Dónde se encuentra tu casa?", input_ciudad)
+    elif usuario == "Elige":
+        st.stop()
     
 
     #pregunta 2
@@ -37,7 +41,10 @@ def app():
 
     #pregunta 3  
     input_huespedes = ["Elige", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
-    if usuario == "Huésped":
+    
+    if usuario == "Elige":
+        st.stop()
+    elif usuario == "Huésped":
         huespedes = st.selectbox("¿Cuántos huéspedes seréis?", input_huespedes)
     elif usuario == "Propietario":
         huespedes = st.selectbox("¿Cuántos huéspedes puede alojar tu casa?", input_huespedes)
@@ -46,43 +53,66 @@ def app():
     #pregunta 4  
     input_dormitorios = ["Elige", "Estudio", "1", "2", "3", "4", "5", "6"]
 
-    if usuario == "Huésped":
+    if usuario == "Elige":
+        st.stop()
+    elif usuario == "Huésped":
         dormitorio = st.selectbox("¿Cuántos dormitorios necesitas?", input_dormitorios)
     elif usuario == "Propietario":
         dormitorio = st.selectbox("¿Cuántos dormitorios tiene tu casa?", input_dormitorios)
-    elif usuario == "Elige":
-        st.stop()
+
     
     #pregunta 5
     input_camas = ["Elige", "1", "2", "3", "4", "5", "6", "7", "8"]
 
-    if usuario == "Huésped":
+    if usuario == "Elige":
+        st.stop()
+    elif usuario == "Huésped":
         camas = st.selectbox("¿Cuántas camas necesitas?", input_camas)
     elif usuario == "Propietario":
         camas = st.selectbox("¿Cuántas camas hay en tu casa?", input_camas)
-    elif usuario == "Elige":
-        st.stop()
 
     #pregunta 6
     input_baños = ["Elige", "1", "2", "3", "4", "5", "6", "7", "8"]
 
-    if usuario == "Huésped":
+    if usuario == "Elige":
+        st.stop()
+    elif usuario == "Huésped":
         baños = st.selectbox("¿Cuántos baños necesitas?", input_baños)
     elif usuario == "Propietario":
         baños = st.selectbox("¿Cuántos baños hay en tu casa?", input_baños)
-    elif usuario == "Elige":
-        st.stop()
-
-
+    
     #pregunta 7
-    input_usos = ["Llegada autónoma", "Lavadora", "Aire Acondicionado", "Limpieza"]
+    input_usos = ["Sí", "No"]
 
     if usuario == "Huésped":
-        usos = st.multiselect("Selecciona todas las utilidades que necesitas en el alojamiento:", input_usos) 
+        llegada = st.radio("¿Quieres entrar de forma autónoma en el alojamiento? Esto es, sin necesidad de esperar al propietario para acceder a la vivienda.", input_usos)
     elif usuario == "Propietario":
-        usos = st.multiselect("Selecciona todas las utilidades que puede ofrecer tu casa:",  input_usos)
-    elif usuario == "Elige":
-        st.stop()
+        llegada = st.radio("¿Ofreces la posibilidad de llegada autómoma? Esto es, sin necesidad de acompañar al huésped para acceder a la vivienda.",  input_usos)
+   
+
+    #pregunta 8
+    input_usos = ["Sí", "No"]
+    
+    if usuario == "Huésped":
+        aire = st.radio("¿Quieres que el alojamiento tenga aire acondiconado?", input_usos)
+    elif usuario == "Propietario":
+        aire = st.radio("¿Tu alojamiento tiene aire acondicionado?",  input_usos)
+    
+    #pregunta 9
+    input_usos = ["Sí", "No"]
+    if usuario == "Huésped":
+        lavadora = st.radio("¿Quieres que el alojamiento tenga lavadora?", input_usos)
+    elif usuario == "Propietario":
+        lavadora = st.radio("¿Tu alojamiento tiene lavadora?",  input_usos)
+
+    #pregunta 10
+    input_usos = ["Sí", "No"]
+
+    if usuario == "Huésped":
+        limpieza = st.radio("¿Quieres que el alojamiento tenga limpieza avanzada? Esto es, un suplemento de limpieza cuando abandones el alojamiento.", input_usos)
+    elif usuario == "Propietario":
+        limpieza = st.radio("¿Ofreces la posibilidad de limpieza avanzada? Esto es, un suplemento de limpieza cuando el huésped deje el alojamiento.",  input_usos)
+    
 
     datos = sp.read_csv()
 
@@ -91,7 +121,7 @@ def app():
     #st.dataframe(datos)
     #& (datos.huespedes == huespedes) & (datos.dormitorios == dormitorio) & (datos.camas == camas) & (datos.baños == baños) & ((datos.llegada_autonoma == usos) or (datos.lavadora == usos) or (datos.aire == usos) or (datos.limpieza == usos))
 
-
+    #respuesta 1:
     if ciudad == "Madrid":
         ciu = ["Madrid"]
     elif ciudad == "Barcelona":
@@ -102,7 +132,7 @@ def app():
         ciu = ["Sevilla"]
     ciudad = datos[datos.ciudad.isin(ciu)]
     
-
+    #respuesta 2:
     if alojamiento == "Alojamiento entero":
         alo = ["Alojamiento entero"]
     elif alojamiento == "Habitación privada":
@@ -110,6 +140,7 @@ def app():
     alojamiento = ciudad[ciudad.alojamiento.isin(alo)]
     #st.dataframe(alojamiento)
 
+    #respuesta 3:
     if huespedes == "1":
         hues = [1]
     elif huespedes == "2":
@@ -135,9 +166,9 @@ def app():
     elif huespedes == "12":
         hues = [12]
     huespedes_ = alojamiento[alojamiento.huespedes.isin(hues)]
-
     #st.dataframe(huespedes_)
 
+    #respuesta 4:
     if dormitorio == "1":
         dorm = [1]
     elif dormitorio == "2":
@@ -155,6 +186,7 @@ def app():
     dormitorio = huespedes_[huespedes_.dormitorios.isin(dorm)]
     #st.dataframe(dormitorio)
 
+    #respuesta 5:
     if camas == "1":
         cama = [1]
     elif camas == "2":
@@ -174,6 +206,7 @@ def app():
     camas_ = dormitorio[dormitorio.camas.isin(cama)]
     #st.dataframe(camas_)
 
+    #respuesta 6:
     if baños == "1":
         bañ = [1]
     elif baños == "2":
@@ -191,7 +224,57 @@ def app():
     elif baños == "8":
         bañ = [8]
     baño = camas_[camas_.baños.isin(bañ)]
-    st.dataframe(baño[["precio_eur", "valoracion"]])
-
     
+    
+    #respuesta 7:
+    if llegada == "Sí":
+        uso = ["Llegada autónoma"]
+    elif llegada == "No":
+        uso = ["No llegada autónoma"]
+    usos_ = baño[baño.llegada_autonoma.isin(uso)]           
+    #st.dataframe(usos_[["nombre","precio_eur", "valoracion", "urls" ]])
+
+    #respuesta 8:
+    if aire == "Sí":
+        uso = ["Aire acondicionado"]
+    elif aire == "No":
+        uso = ["No aire acondicionado"]
+    
+    aire_ = usos_[usos_.aire.isin(uso)]           
+    #st.dataframe(aire_[["nombre","precio_eur", "valoracion", "urls" ]])
+
+    #respuesta 9:
+    if lavadora == "Sí":
+        uso = ["Lavadora"]
+    elif lavadora == "No":
+        uso = ["No Lavadora"]
+    
+    lavadora_ = aire_[aire_.lavadora.isin(uso)]           
+    #st.dataframe(lavadora_[["nombre","precio_eur", "valoracion", "urls" ]])
+
+    #respuesta 10:
+    if limpieza == "Sí":
+            uso = ["Limpieza avanzada"]
+    elif limpieza == "No":
+        uso = ["No Limpieza avanzada"]
+    
+    final = lavadora_[lavadora_.limpieza.isin(uso)]           
+    #st.dataframe(final[["nombre","precio_eur", "valoracion", "urls"]])
+    
+    
+    if len(final) >0 and usuario == "Huésped":
+        st.write("""
+    ### 🏠 Estos son los alojamientos disponibles en tu selección:
+    """)
+        st.dataframe(final[["nombre","precio_eur", "valoracion", "urls" ]])
+    
+    elif len(final) >0 and usuario == "Propietario":
+        print(final)
+        sp.model(final)
+    else:
+        st.write("""
+        \n ## Lo siento... 🥲 actualmente no existen Airbnbs con esas características.
+        \n #### ¡Intenta probar otra combinación! 💪🏻
+    """)
+
 

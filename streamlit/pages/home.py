@@ -4,10 +4,14 @@ import streamlit.components.v1 as components
 import codecs
 
 def app():
-    portada = Image.open("images/portadita.jpg")
+    
+    imagen = Image.open("images/ironh.png")
+    st.sidebar.image(imagen, use_column_width=True)
+    
     st.write("""
     # Tu Travelling-Compass ✈️ 🏡
     """)
+    portada = Image.open("images/portadita.jpg")
     st.image(portada, use_column_width=True)
     st.write("""
     ## ¡Bienvenidos a vuestra Travelling-Compass!

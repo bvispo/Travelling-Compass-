@@ -4,12 +4,16 @@ import streamlit.components.v1 as components
 import codecs
 
 def app():
-    portada = Image.open("images/usuario.jpg")
+    portada = Image.open("images/compass.jpg")
     st.image(portada, use_column_width=True)
+    imagen = Image.open("images/ironh.png")
+    st.sidebar.image(imagen, use_column_width=True)
     st.write("""
-    # ¡Travelling-Compass! ✈️🏠
-
+    # ¡Travelling-Compass! 
+    
     ### 1. ¿Por qué he hecho este proyecto?
+
+    
 
     ### 2. ¿Qué herramientas he utilizado?
 
@@ -19,11 +23,11 @@ def app():
 
     ### 3. ¿Cómo he conseguido los datos?
 
-    - Los datos se obtuvieron gracias a la herramienta de web-scrapping Selenium. Se ha recopilado información de 2400 alojamientos de Airbnb, ubicados en Madrid, Barcelona, Valencia y Sevilla.
+    Los datos se obtuvieron gracias a la herramienta de web-scrapping Selenium. Se ha recopilado información de 2400 alojamientos de Airbnb, ubicados en Madrid, Barcelona, Valencia y Sevilla.
 
     ### 4. ¿Qué conclusiones he obtenido?
     
-    ### El precio de los alojamientos de Airbnb depende principalmente de:
+    ##### El precio de los alojamientos de Airbnb depende principalmente de:
 
     - Los pisos con **aire acondicionado** son más caros.
     - El precio de un **alojamiento entero** es mayor que el de una habitación privada.
@@ -32,7 +36,8 @@ def app():
     - A medida que aumenta el número de **dormitorios**, **baños** y **huéspedes**, el **precio** del alojamiento se incrementa.
     
     ### 5. ¿Cómo funciona Travelling-Compass?
-
+    
+    Lo podemos ver en la pestaña de *"Travelling-Compass"*.
 
     ### 6. Librerías utilizadas:
     

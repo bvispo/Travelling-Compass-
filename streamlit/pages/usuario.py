@@ -5,6 +5,16 @@ import codecs
 import src.soporte as sp
 
 def app():
+    portada = Image.open("images/usuario.jpg")
+    st.image(portada, use_column_width=True)
+
+    imagen = Image.open("images/ironh.png")
+    st.sidebar.image(imagen, use_column_width=True)
+    st.write("""
+    # 👋🏻 Hola, soy Travelling-Compass! 
+
+    ### Por favor, cumplimenta el siguiente formulario:
+    """)
     #pregunta 0
     input_usuario = ["Huésped", "Propietario"]
 
@@ -18,10 +28,8 @@ def app():
         ciudad = st.radio("¿A dónde quieres viajar?", input_ciudad)
     elif usuario == "Propietario":
         ciudad = st.radio("¿Dónde se encuentra tu casa?", input_ciudad)
-    elif usuario == "Elige":
-        st.stop()
     
-
+    
     #pregunta 2
     input_alojamiento = ["Alojamiento entero", "Habitación privada"]
 
@@ -34,12 +42,14 @@ def app():
     #pregunta 3  
     input_huespedes = ["Elige", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
     
-    if usuario == "Elige":
-        st.stop()
-    elif usuario == "Huésped":
+    if usuario == "Huésped":
         huespedes = st.selectbox("¿Cuántos huéspedes seréis?", input_huespedes)
+        if huespedes == "Elige":
+            st.stop()
     elif usuario == "Propietario":
         huespedes = st.selectbox("¿Cuántos huéspedes puede alojar tu casa?", input_huespedes)
+        if huespedes == "Elige":
+            st.stop()
     
     
     #pregunta 4  
@@ -49,8 +59,12 @@ def app():
         st.stop()
     elif usuario == "Huésped":
         dormitorio = st.selectbox("¿Cuántos dormitorios necesitas?", input_dormitorios)
+        if dormitorio == "Elige":
+            st.stop()
     elif usuario == "Propietario":
         dormitorio = st.selectbox("¿Cuántos dormitorios tiene tu casa?", input_dormitorios)
+        if dormitorio == "Elige":
+            st.stop()
 
     
     #pregunta 5
@@ -60,8 +74,12 @@ def app():
         st.stop()
     elif usuario == "Huésped":
         camas = st.selectbox("¿Cuántas camas necesitas?", input_camas)
+        if camas == "Elige":
+            st.stop()
     elif usuario == "Propietario":
         camas = st.selectbox("¿Cuántas camas hay en tu casa?", input_camas)
+        if camas == "Elige":
+            st.stop()
 
     #pregunta 6
     input_baños = ["Elige", "1", "2", "3", "4", "5", "6", "7", "8"]
@@ -70,8 +88,12 @@ def app():
         st.stop()
     elif usuario == "Huésped":
         baños = st.selectbox("¿Cuántos baños necesitas?", input_baños)
+        if baños == "Elige":
+            st.stop()
     elif usuario == "Propietario":
         baños = st.selectbox("¿Cuántos baños hay en tu casa?", input_baños)
+        if baños == "Elige":
+            st.stop()
     
     #pregunta 7
     input_usos = ["Sí", "No"]
@@ -263,7 +285,7 @@ def app():
     elif len(final) >0 and usuario == "Propietario":
         print(final)
         st.write(f"""
-        ### Tu precio competitivo en Airbnb será de: {round(sp.model(final)[0], 2)}€
+        ### Tu precio competitivo en Airbnb será de: {round(sp.model(final)[0], 2)}€ por noche.
     """)
     else:
         st.write("""

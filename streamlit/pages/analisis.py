@@ -7,6 +7,8 @@ import codecs
 def app():
     portada = Image.open("images/analisis.jpg")
     st.image(portada, use_column_width=True)
+    imagen = Image.open("images/ironh.png")
+    st.sidebar.image(imagen, use_column_width=True)
     st.write("""
     # Tu Travelling-Compass ✈️ 🏡
     """)
@@ -37,8 +39,8 @@ def app():
     Las medias de los precios en cada uno de los clusters son las siguientes:
     
     **0 : Precio Medio Alojamiento = 120.67€  **            
-    **1 : Precio Medio Alojamiento = 58.67€      **                   
-    **2 : Precio Medio Alojamiento = 143.38€    **                     
+    **1 : Precio Medio Alojamiento = 58.67€   **                   
+    **2 : Precio Medio Alojamiento = 143.38€  **                     
 
     """)
     
